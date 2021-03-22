@@ -4,7 +4,7 @@
 
 # MySQLDatabaseEngine
 
-Contains a static compilation of the `QMYSQL` driver and its respective dependencies for each platform. The goal of this project is to reduce development/setup time for Qt projects that need to communicate with a MySQL database.
+Contains a static compilation of the `QMYSQL` driver and its respective dependencies for each platform. The goal of this project is to reduce setup, development & deployment time for Qt apps that need to communicate with a MySQL database.
 
 Additionaly, this repo comes with a simple `QObject` class for usage within QML applications.
 
