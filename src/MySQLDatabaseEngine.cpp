@@ -36,8 +36,8 @@
  */
 // clang-format-off
 #ifdef MYSQLDATABASE_ENGINE_STATIC
-    #include <QtPlugin>
-    Q_IMPORT_PLUGIN(QMYSQLDriverPlugin)
+#    include <QtPlugin>
+Q_IMPORT_PLUGIN(QMYSQLDriverPlugin)
 #endif
 // clang-format on
 

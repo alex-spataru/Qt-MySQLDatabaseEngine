@@ -21,7 +21,6 @@
 #
 
 INCLUDEPATH += $$PWD/src
-INCLUDEPATH += $$PWD/include
 
 QT += gui
 QT += sql
