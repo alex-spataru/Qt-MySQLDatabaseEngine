@@ -35,14 +35,14 @@
  * Register the MySQL static plugin
  */
 #ifdef MYSQLDATABASE_ENGINE_STATIC
-#include <QtPlugin>
+#    include <QtPlugin>
 Q_IMPORT_PLUGIN(QMYSQLDriverPlugin)
 #endif
 
 /**
  * Pointer to the singleton instance of the class
  */
-static MySQLDatabaseEngine* INSTANCE = nullptr;
+static MySQLDatabaseEngine *INSTANCE = nullptr;
 
 /**
  * Shows a macOS-like message box with the given properties
@@ -64,7 +64,8 @@ static int ShowMessageBox(QString text, QString informativeText)
 /**
  * Constructor function
  */
-MySQLDatabaseEngine::MySQLDatabaseEngine() {
+MySQLDatabaseEngine::MySQLDatabaseEngine()
+{
     m_database = QSqlDatabase::addDatabase("QMYSQL");
     m_database.setHostName("localhost");
     m_database.setPort(3306);
@@ -73,14 +74,16 @@ MySQLDatabaseEngine::MySQLDatabaseEngine() {
 /**
  * Destructor function
  */
-MySQLDatabaseEngine::~MySQLDatabaseEngine() {
+MySQLDatabaseEngine::~MySQLDatabaseEngine()
+{
     close();
 }
 
 /**
  * Returns the only instance of the class
  */
-MySQLDatabaseEngine* MySQLDatabaseEngine::getInstance() {
+MySQLDatabaseEngine *MySQLDatabaseEngine::getInstance()
+{
     if (!INSTANCE)
         INSTANCE = new MySQLDatabaseEngine;
 
@@ -90,7 +93,8 @@ MySQLDatabaseEngine* MySQLDatabaseEngine::getInstance() {
 /**
  * Returns a pointer to the database handler class
  */
-QSqlDatabase* MySQLDatabaseEngine::database()  {
+QSqlDatabase *MySQLDatabaseEngine::database()
+{
     return &m_database;
 }
 
@@ -98,28 +102,32 @@ QSqlDatabase* MySQLDatabaseEngine::database()  {
  * Returns the connection's port number. The value is undefined if the port number has not
  * been set.
  */
-int MySQLDatabaseEngine::port() const {
+int MySQLDatabaseEngine::port() const
+{
     return m_database.port();
 }
 
 /**
  * Returns true if the database connection is currently open; otherwise returns false.
  */
-bool MySQLDatabaseEngine::isOpen() const {
+bool MySQLDatabaseEngine::isOpen() const
+{
     return m_database.isOpen();
 }
 
 /**
  * Returns the connection's host name; it may be empty.
  */
-QString MySQLDatabaseEngine::hostName() const {
+QString MySQLDatabaseEngine::hostName() const
+{
     return m_database.hostName();
 }
 
 /**
  * Returns the connection's user name; it may be empty.
  */
-QString MySQLDatabaseEngine::userName() const {
+QString MySQLDatabaseEngine::userName() const
+{
     return m_database.userName();
 }
 
@@ -128,7 +136,8 @@ QString MySQLDatabaseEngine::userName() const {
  * not set with setPassword(), and if the password was given in the open() call, or if no
  * password was used.
  */
-QString MySQLDatabaseEngine::password() const {
+QString MySQLDatabaseEngine::password() const
+{
     return m_database.password();
 }
 
@@ -137,7 +146,8 @@ QString MySQLDatabaseEngine::password() const {
  *
  * @note The database name is not the connection name.
  */
-QString MySQLDatabaseEngine::databaseName() const {
+QString MySQLDatabaseEngine::databaseName() const
+{
     return m_database.databaseName();
 }
 
@@ -145,7 +155,8 @@ QString MySQLDatabaseEngine::databaseName() const {
  * Opens the database connection using the current connection values. On failure, a
  * messagebox with error description shall be shown to the user.
  */
-void MySQLDatabaseEngine::open() {
+void MySQLDatabaseEngine::open()
+{
     if (!m_database.open(userName(), password()))
         ShowMessageBox(tr("Error establishing database connection"),
                        m_database.lastError().text());
@@ -157,7 +168,8 @@ void MySQLDatabaseEngine::open() {
  * Closes the database connection, freeing any resources acquired, and invalidating any
  * existing QSqlQuery objects that are used with the database.
  */
-void MySQLDatabaseEngine::close() {
+void MySQLDatabaseEngine::close()
+{
     m_database.close();
     emit openChanged();
 }
@@ -167,7 +179,8 @@ void MySQLDatabaseEngine::close() {
  * before the connection is opened. Alternatively, you can close() the connection, set the
  * port number, and call open() again.
  */
-void MySQLDatabaseEngine::setPort(const int port) {
+void MySQLDatabaseEngine::setPort(const int port)
+{
     m_database.setPort(port);
     emit portChanged();
 }
@@ -177,7 +190,8 @@ void MySQLDatabaseEngine::setPort(const int port) {
  * before the connection is opened. Alternatively, you can close() the connection, set the
  * host name, and call open() again.
  */
-void MySQLDatabaseEngine::setHostName(const QString& hostName) {
+void MySQLDatabaseEngine::setHostName(const QString &hostName)
+{
     m_database.setHostName(hostName);
     emit hostNameChanged();
 }
@@ -187,7 +201,8 @@ void MySQLDatabaseEngine::setHostName(const QString& hostName) {
  * before the connection is opened. Alternatively, you can close() the connection, set the
  * user name, and call open() again.
  */
-void MySQLDatabaseEngine::setUserName(const QString& userName) {
+void MySQLDatabaseEngine::setUserName(const QString &userName)
+{
     m_database.setUserName(userName);
     emit userNameChanged();
 }
@@ -200,7 +215,8 @@ void MySQLDatabaseEngine::setUserName(const QString& userName) {
  * @warning This function stores the password in plain text within Qt. Use the open() call
  *          from the database() that takes a password as parameter to avoid this behavior.
  */
-void MySQLDatabaseEngine::setPassword(const QString& password) {
+void MySQLDatabaseEngine::setPassword(const QString &password)
+{
     m_database.setPassword(password);
     emit passwordChanged();
 }
@@ -210,7 +226,8 @@ void MySQLDatabaseEngine::setPassword(const QString& password) {
  * set before the connection is opened. Alternatively, you can close() the connection, set
  * the database name, and call open() again.
  */
-void MySQLDatabaseEngine::setDatabaseName(const QString& databaseName) {
+void MySQLDatabaseEngine::setDatabaseName(const QString &databaseName)
+{
     m_database.setDatabaseName(databaseName);
     emit databaseNameChanged();
 }

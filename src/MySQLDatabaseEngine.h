@@ -26,7 +26,8 @@
 #include <QObject>
 #include <QSqlDatabase>
 
-class MySQLDatabaseEngine : public QObject {
+class MySQLDatabaseEngine : public QObject
+{
     // clang-format off
     Q_OBJECT
     Q_PROPERTY(int port
@@ -63,9 +64,9 @@ signals:
     void databaseNameChanged();
 
 public:
-    static MySQLDatabaseEngine* getInstance();
+    static MySQLDatabaseEngine *getInstance();
 
-    QSqlDatabase* database();
+    QSqlDatabase *database();
 
     int port() const;
     bool isOpen() const;
@@ -78,10 +79,10 @@ public slots:
     void open();
     void close();
     void setPort(const int port);
-    void setHostName(const QString& hostName);
-    void setUserName(const QString& userName);
-    void setPassword(const QString& password);
-    void setDatabaseName(const QString& databaseName);
+    void setHostName(const QString &hostName);
+    void setUserName(const QString &userName);
+    void setPassword(const QString &password);
+    void setDatabaseName(const QString &databaseName);
 
 private:
     MySQLDatabaseEngine();
